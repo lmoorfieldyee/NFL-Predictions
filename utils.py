@@ -191,7 +191,31 @@ def create_feature_cols(team_data_list):
     return team_data_list
 
 
-def get_opponent_stats(df, col):
+def get_opponent_stats(df):
+    x = df.copy()
+    x = x[['team_name', 'week', 'win ratio', 'total points scored szn avg',
+          'total points allowed szn avg', 'first downs gained szn avg',
+          'total yards gained szn avg', 'pass yards gained szn avg',
+          'rush yards gained szn avg', 'turnovers lost szn avg',
+          'first downs allowed szn avg', 'total yards against szn avg',
+          'pass yards against szn avg', 'rush yards against szn avg',
+          'turnovers gained by defense szn avg']]
+    cols_to_rename = ['win ratio', 'total points scored szn avg',
+                      'total points allowed szn avg', 'first downs gained szn avg',
+                      'total yards gained szn avg', 'pass yards gained szn avg',
+                      'rush yards gained szn avg', 'turnovers lost szn avg',
+                      'first downs allowed szn avg', 'total yards against szn avg',
+                      'pass yards against szn avg', 'rush yards against szn avg',
+                      'turnovers gained by defense szn avg']
+
+    col_renaming = [" ".join(('opp', col)) for col in cols_to_rename]
+    print(col_renaming)
+    col_renaming = dict(zip(cols_to_rename, col_renaming))
+    print(col_renaming)
+    x.rename(col_renaming, inplace=True, axis=1)
+    x.rename({'team_name':'opponent name'}, inplace=True, axis=1)
+    df = df.merge(x, how='left', on=['opponent name', 'week'])
+    '''
     col_to_return = []
     opponent_name = list(df['opponent name'])
     week = list(df['week'])
@@ -204,27 +228,18 @@ def get_opponent_stats(df, col):
         print(df[(df['team_name']==opponent_name[i]) & (df['week']==week[i])])
         # print('opponent name: ', opponent_name[i], 'week: ', week[i])
         col_value = df[(df['team_name']==opponent_name[i]) & (df['week']==week[i])][col].values[0]
-        col_to_return.append(col_value)
-    return col_to_return
+        col_to_return.append(col_value)'''
+    return df
 
 def get_clean_data(year, week):
-    week_folder = r"C:\Users\lmoor\Desktop\Data Science Projects\Football Outcome Prediction\week " + str(week) + '\df_' + str(year) + '.csv'
+    week_folder = r"C:\Users\lmoor\Desktop\Data Science Projects\NFL Predictions\week " + str(week) + '\df_' + str(year) + '.csv'
     x = get_pfr_data(year)
     for i, df in enumerate(x):
         x[i] = clean_pfr(df, week)
     x = create_feature_cols(x)
     x = pd.concat(x)
-    cols_to_add = ['win ratio', 'total points scored szn avg',
-                   'total points allowed szn avg', 'first downs gained szn avg',
-                   'total yards gained szn avg', 'pass yards gained szn avg',
-                   'rush yards gained szn avg', 'turnovers lost szn avg',
-                   'first downs allowed szn avg', 'total yards against szn avg',
-                   'pass yards against szn avg', 'rush yards against szn avg',
-                   'turnovers gained by defense szn avg']
 
-    for col in cols_to_add:
-        new_col = "opp " + col
-        x[new_col] = get_opponent_stats(x, col)
+    x = get_opponent_stats(x)
 
     x.to_csv(week_folder)
 

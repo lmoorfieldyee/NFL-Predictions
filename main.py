@@ -25,7 +25,7 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
 week = int(input("Enter current week's matchup: "))
-week_folder = r"C:\Users\lmoor\Desktop\Data Science Projects\Football Outcome Prediction\week " + str(week)
+week_folder = r"C:\Users\lmoor\Desktop\Data Science Projects\NFL Predictions\week " + str(week)
 if len(os.listdir(week_folder)) == 0:
     get_clean_data(2022, week)
     get_clean_data(2021, week)
@@ -33,11 +33,11 @@ if len(os.listdir(week_folder)) == 0:
     get_clean_data(2019, week)
     get_clean_data(2018, week)
 
-df_2022 = pd.read_csv(r"C:\Users\lmoor\Desktop\Data Science Projects\Football Outcome Prediction\week " + str(week) + "\df_2022.csv")
-df_2021 = pd.read_csv(r"C:\Users\lmoor\Desktop\Data Science Projects\Football Outcome Prediction\week " + str(week) + "\df_2021.csv")
-df_2020 = pd.read_csv(r"C:\Users\lmoor\Desktop\Data Science Projects\Football Outcome Prediction\week " + str(week) + "\df_2020.csv")
-df_2019 = pd.read_csv(r"C:\Users\lmoor\Desktop\Data Science Projects\Football Outcome Prediction\week " + str(week) + "\df_2019.csv")
-df_2018 = pd.read_csv(r"C:\Users\lmoor\Desktop\Data Science Projects\Football Outcome Prediction\week " + str(week) + "\df_2018.csv")
+df_2022 = pd.read_csv(r"C:\Users\lmoor\Desktop\Data Science Projects\NFL Predictions\week " + str(week) + "\df_2022.csv")
+df_2021 = pd.read_csv(r"C:\Users\lmoor\Desktop\Data Science Projects\NFL Predictions\week " + str(week) + "\df_2021.csv")
+df_2020 = pd.read_csv(r"C:\Users\lmoor\Desktop\Data Science Projects\NFL Predictions\week " + str(week) + "\df_2020.csv")
+df_2019 = pd.read_csv(r"C:\Users\lmoor\Desktop\Data Science Projects\NFL Predictions\week " + str(week) + "\df_2019.csv")
+df_2018 = pd.read_csv(r"C:\Users\lmoor\Desktop\Data Science Projects\NFL Predictions\week " + str(week) + "\df_2018.csv")
 
 all_df = pd.concat([df_2022, df_2021, df_2020, df_2019, df_2018])
 
