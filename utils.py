@@ -209,9 +209,7 @@ def get_opponent_stats(df):
                       'turnovers gained by defense szn avg']
 
     col_renaming = [" ".join(('opp', col)) for col in cols_to_rename]
-    print(col_renaming)
     col_renaming = dict(zip(cols_to_rename, col_renaming))
-    print(col_renaming)
     x.rename(col_renaming, inplace=True, axis=1)
     x.rename({'team_name':'opponent name'}, inplace=True, axis=1)
     df = df.merge(x, how='left', on=['opponent name', 'week'])
