@@ -41,7 +41,7 @@ df_2018 = pd.read_csv(r"C:\Users\lmoor\Desktop\Data Science Projects\NFL Predict
 
 all_df = pd.concat([df_2022, df_2021, df_2020, df_2019, df_2018])
 
-train_df = all_df[(all_df['season']!=2022) & (all_df['week']>=7)]
+train_df = all_df[(all_df['season']!=2022) & (all_df['week']==week)]
 predict_df = all_df[(all_df['season']==2022) & (all_df['week']==week)]
 
 '''
