@@ -134,7 +134,7 @@ scaler = MinMaxScaler()
 X_train_scaled = scaler.fit_transform(X)
 X_predict_scaled = scaler.transform(X_predict)
 
-alphas = [.001, .01, .1, 1, 10, 100]
+alphas = [10, 100, 125, 150, 175, 200] #[.001, .01, .1, 1, 10, 100]
 
 for alpha in alphas:
     print("current alpha {}".format(alpha))
@@ -167,7 +167,7 @@ X_predict_scaled = scaler.transform(X_predict)
 
 #print(week_to_predict.head(2)[['team_name', 'opponent name', 'total points scored szn avg', 'total points allowed szn avg',
 #                               'opp total points scored szn avg', 'opp total points allowed szn avg']])
-clf = LogisticRegression(max_iter=10000, penalty='l2', C=1)
+clf = LogisticRegression(max_iter=10000, penalty='l2', C=50)
 clf.fit(X_train_scaled, y_train)
 
 
